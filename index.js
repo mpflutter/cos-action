@@ -18,12 +18,19 @@ const walk = async (path, walkFn) => {
 
 const uploadFileToCOS = (cos, path) => {
     return new Promise((resolve, reject) => {
+        let exts = {};
+        if (path.endsWith(".js")) {
+            exts["Headers"] = {
+                "content-type": "application/javascript; charset=utf-8",
+            };
+        }
         cos.cli.putObject({
             Bucket: cos.bucket,
             Region: cos.region,
             Key: Path.join(cos.remotePath, path),
             StorageClass: 'STANDARD',
             Body: fs.createReadStream(Path.join(cos.localPath, path)),
+            ...exts,
         }, function(err, data) {
             if (err) {
                 return reject(err);
