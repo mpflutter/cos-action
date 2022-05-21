@@ -164,20 +164,6 @@ const process = async (cos) => {
   const localFiles = await collectLocalFiles(cos);
   console.log(localFiles.size, "files to be uploaded");
   await uploadFiles(cos, localFiles);
-  let cleanedFilesCount = 0;
-  if (cos.clean) {
-    const remoteFiles = await collectRemoteFiles(cos);
-    const deletedFiles = findDeletedFiles(localFiles, remoteFiles);
-    if (deletedFiles.size > 0) {
-      console.log(`${deletedFiles.size} files to be cleaned`);
-    }
-    await cleanDeleteFiles(cos, deletedFiles);
-    cleanedFilesCount = deletedFiles.size;
-  }
-  let cleanedFilesMessage = "";
-  if (cleanedFilesCount > 0) {
-    cleanedFilesMessage = `, cleaned ${cleanedFilesCount} files`;
-  }
   console.log(`uploaded ${localFiles.size} files${cleanedFilesMessage}`);
 };
 
