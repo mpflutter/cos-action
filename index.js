@@ -168,7 +168,7 @@ try {
         cli: new COS({
             SecretId: core.getInput('secret_id'),
             SecretKey: core.getInput('secret_key'),
-            Domain: core.getInput('accelerate') === 'true' ? '{Bucket}.cos.accelerate.myqcloud.com' : undefined,
+            UseAccelerate: true,
         }),
         bucket: core.getInput('cos_bucket'),
         region: core.getInput('cos_region'),
