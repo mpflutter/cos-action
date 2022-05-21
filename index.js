@@ -164,7 +164,6 @@ const process = async (cos) => {
   const localFiles = await collectLocalFiles(cos);
   console.log(localFiles.size, "files to be uploaded");
   await uploadFiles(cos, localFiles);
-  console.log(`uploaded ${localFiles.size} files${cleanedFilesMessage}`);
 };
 
 try {
